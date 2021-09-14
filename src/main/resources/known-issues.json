@@ -1,0 +1,11 @@
+{
+  "VVD-1": {
+    "type": "AUTOMATION",
+    "assertionPattern": "HTTP response status code \\[Expected: a value equal to <201> Actual: <200> was less than <201>\\]",
+    "storyPattern": "Activity",
+    "scenarioPattern": "Get Activities Using GET",
+    "stepPattern": "Then the response code is equal to '*'",
+    "failScenarioFast": true,
+    "failStoryFast": false
+  }
+}
