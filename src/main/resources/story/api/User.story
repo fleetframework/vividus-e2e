@@ -31,8 +31,8 @@ When I set request headers:
 | Authorization    | bearer #{removeWrappingDoubleQuotes(${token})} |
 And I issue a HTTP POST request for a resource with the URL '${url}api/v1/user/password/change'
 Then the response code is equal to '<statusCode>'
-Then JSON element by JSON path `$.errorCode` is equal to `<errorCode>`ignoring extra fields
-Then JSON element by JSON path `$.message` is equal to `<message>`ignoring extra fields
+And JSON element by JSON path `$.errorCode` is equal to `<errorCode>`ignoring extra fields
+And JSON element by JSON path `$.message` is equal to `<message>`ignoring extra fields
 
 Examples:
 | oldPassword | newPassword  | statusCode | errorCode | message                                                                         |
