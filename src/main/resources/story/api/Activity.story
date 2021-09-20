@@ -1,4 +1,5 @@
 Meta:
+@api
 @smoke
 @activity
 @issueId VVD-1

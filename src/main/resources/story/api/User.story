@@ -1,4 +1,5 @@
 Meta:
+@api
 @smoke
 @user
 

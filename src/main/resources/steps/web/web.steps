@@ -1,0 +1,4 @@
+Composite: When I log in
+When I add `${username}` to field located `By.cssSelector(form[class*=loginForm] input[type*=text])`
+And I add `${password}` to field located `By.cssSelector(form[class*=loginForm] input[type*=password])`
+And I click on element located `By.cssSelector(form[class*=loginForm] button[type*=submit])`

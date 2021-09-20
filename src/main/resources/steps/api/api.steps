@@ -1,0 +1,31 @@
+Composite: Given get token
+Given request body:
+grant_type=password&username=${username}&password=${password}
+When I set request headers:
+| name             | value                             |
+| Content-Type     | application/x-www-form-urlencoded |
+| Content-Encoding | br                                |
+| Authorization    | Basic dWk6dWltYW4                 |
+And I issue a HTTP POST request for a resource with the URL '${url}uat/sso/oauth/token'
+Then the response code is equal to '200'
+When I save JSON element from context by JSON path `access_token` to scenario variable `token`
+
+Composite: When I set request headers with token
+When I set request headers:
+| name             | value                                          |
+| Content-Type     | application/json                               |
+| Authorization    | bearer #{removeWrappingDoubleQuotes(${token})} |
+
+Composite: When I save runId and runUUID to story variables
+When the condition '#{evalGroovy("<mode>" == "DEBUG")}' is true I do
+| step                                                                                                                                            |
+| When I save JSON element from context by JSON path `id` to story variable `debugRunUUID`                                                        |
+| And I issue a HTTP GET request for a resource with the URL '${url}api/v1/${project}/launch/uuid/#{removeWrappingDoubleQuotes(${debugRunUUID})}' |
+| Then the response code is equal to '200'                                                                                                        |
+| When I save JSON element from context by JSON path `id` to story variable `debugRunId`
+And the condition '#{evalGroovy("<mode>" == "DEFAULT")}' is true I do
+| step                                                                                                                                               |
+| When I save JSON element from context by JSON path `id` to story variable `defaultRunUUID`                                                         |
+| And I issue a HTTP GET request for a resource with the URL '${url}api/v1/${project}/launch/uuid/#{removeWrappingDoubleQuotes(${defaultRunUUID})}' |
+| Then the response code is equal to '200'                                                                                                           |
+| When I save JSON element from context by JSON path `id` to story variable `defaultRunId`
