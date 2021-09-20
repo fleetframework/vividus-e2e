@@ -8,16 +8,8 @@ Check RP user
 Lifecycle:
 Scope: SCENARIO
 Before:
-Given request body:
-grant_type=password&username=${username}&password=${password}
-When I set request headers:
-| name             | value                             |
-| Content-Type     | application/x-www-form-urlencoded |
-| Content-Encoding | br                                |
-| Authorization    | Basic dWk6dWltYW4                 |
-And I issue a HTTP POST request for a resource with the URL '${url}uat/sso/oauth/token'
-Then the response code is equal to '200'
-When I save JSON element from context by JSON path `access_token` to scenario variable `token`
+Given get token
+
 
 Scenario: Change Password Negative
 Given request body:
@@ -25,10 +17,7 @@ Given request body:
     "newPassword": "<newPassword>",
     "oldPassword": "<oldPassword>"
 }
-When I set request headers:
-| name             | value                                          |
-| Content-Type     | application/json                               |
-| Authorization    | bearer #{removeWrappingDoubleQuotes(${token})} |
+When I set request headers with token
 And I issue a HTTP POST request for a resource with the URL '${url}api/v1/user/password/change'
 Then the response code is equal to '<statusCode>'
 And JSON element by JSON path `$.errorCode` is equal to `<errorCode>`ignoring extra fields
