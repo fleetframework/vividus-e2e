@@ -4,7 +4,7 @@ Meta:
 @login
 Narrative: Check login
 
-Scenario: Open application under test
+Scenario: Verify user login
 Given I am on the main application page
 When I log in
 And I wait `PT5S` with `PT1S` polling until element located `By.cssSelector(div[class*=userBlock__avatar])` becomes visible
